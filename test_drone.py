@@ -16,7 +16,7 @@ obs, info = env.reset()
 for i in range(5000):
     # Dùng lực đẩy 0.50001 (vừa đủ thắng trọng lực một chút để bay từ từ)
     # Hoặc dùng 0.6 để nó bay vèo lên cho dễ thấy
-    action = np.array([[0, 0, 0, 0.6]]) 
+    action = np.array([[0, 0, 0, 12]]) 
     
     obs, reward, terminated, truncated, info = env.step(action)
     
