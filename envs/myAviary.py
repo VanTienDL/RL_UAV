@@ -47,6 +47,7 @@ class MyAviary(CtrlAviary):
         # ===== BASE ===== (sẽ bị reset đè lên nếu chọn Random)
         self.base_A = np.array([0, 0, 1]) #Trạm A
         self.base_B = np.array([5, 0, 1]) #Trạm B
+        self._set_default_wind()
 
     # wind zone lấy tọa độ hai điểm đối diện nhau của hộp
     # ===== WIND =====
@@ -103,6 +104,28 @@ class MyAviary(CtrlAviary):
         A = np.array([np.random.uniform(0, 2), np.random.uniform(-2, 2), 1])
         B = np.array([np.random.uniform(4, 8), np.random.uniform(-2, 2), 1])
         return A, B
+
+    def _random_wind(self):
+        center = np.array([
+            np.random.uniform(2, 5),
+            np.random.uniform(-2, 2),
+            1.5
+        ])
+        size = np.array([
+            np.random.uniform(1, 2),
+            np.random.uniform(1, 2),
+            np.random.uniform(1, 2)
+        ])
+        
+        self.wind_zone_min = center - size / 2
+        self.wind_zone_max = center + size / 2
+
+        direction = np.random.randn(3)
+        direction = direction / np.linalg.norm(direction)
+
+        strength = np.random.uniform(0.1, 0.5)
+
+        self.wind_vector = direction * strength
 
     def _init_drones_bridge(self):
         vec = self.base_B - self.base_A
